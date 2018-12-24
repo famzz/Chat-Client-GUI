@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Chat_Client_GUI
 {
@@ -24,11 +25,10 @@ namespace Chat_Client_GUI
 
         public void SendMessage(string message)
         {
-            NetworkStream stream = client.GetStream();
-            byte[] data;
+            StreamWriter writer = new StreamWriter(client.GetStream());
+            writer.AutoFlush = true; //Either this, or you Flush manually every time you send something.
 
-            data = Encoding.ASCII.GetBytes(message);
-            stream.Write(data, 0, data.Length);
+            writer.WriteLine(message); //Every message you want to send
         }
 
         public void GetMessage(ChatForm chatForm)

@@ -40,6 +40,7 @@ namespace Chat_Client_GUI
 
             Application.Run(chatForm);
 
+            user.SendMessage("exit");
             t.Abort();
             stream.Close();
             client.Close();
