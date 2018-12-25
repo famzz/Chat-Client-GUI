@@ -33,6 +33,7 @@
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.friendTextBox = new System.Windows.Forms.TextBox();
             this.submitButton = new System.Windows.Forms.Button();
+            this.registerButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // usernameLabel
@@ -93,11 +94,25 @@
             this.submitButton.UseVisualStyleBackColor = true;
             this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
+            // registerButton
+            // 
+            this.registerButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.registerButton.Location = new System.Drawing.Point(273, 118);
+            this.registerButton.Name = "registerButton";
+            this.registerButton.Size = new System.Drawing.Size(108, 34);
+            this.registerButton.TabIndex = 5;
+            this.registerButton.Text = "Register";
+            this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(447, 183);
+            this.Controls.Add(this.registerButton);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.friendTextBox);
             this.Controls.Add(this.usernameTextBox);
@@ -120,6 +135,7 @@
         private System.Windows.Forms.TextBox usernameTextBox;
         private System.Windows.Forms.TextBox friendTextBox;
         private System.Windows.Forms.Button submitButton;
+        private System.Windows.Forms.Button registerButton;
     }
 }
 

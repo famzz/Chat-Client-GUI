@@ -14,19 +14,23 @@ namespace Chat_Client_GUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            LoginForm loginForm = new LoginForm();
+            Int32 port = 5667;
+
+            TcpClient adminClient = new TcpClient("86.12.83.251", port);
+
+            User adminUser = new User("admin", adminClient);
+
+            LoginForm loginForm = new LoginForm(adminUser);
             Application.Run(loginForm);
 
             string username = loginForm.username;
             string friendName = loginForm.friendName;
 
-            //IPAddress address = IPAddress.Parse("86.12.83.251");
-            Int32 port = 5667;
-
             TcpClient client = new TcpClient("86.12.83.251", port);
             NetworkStream stream = client.GetStream();
 
             User user = new User(username, friendName, client);
+            user.SendMessage("CONNECTIONBEGIN");
             user.SendMessage("CONNECTIONSTART:" + username + ":" + friendName);
 
             ChatForm chatForm = new ChatForm(username, friendName, user);
@@ -36,10 +40,9 @@ namespace Chat_Client_GUI
 
             Application.Run(chatForm);
 
-            user.SendMessage("exit");
             t.Abort();
-            stream.Close();
-            client.Close();
+            user.Close();
+            adminUser.Close();
         }
     }
 }

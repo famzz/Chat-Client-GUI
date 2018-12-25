@@ -11,6 +11,12 @@ namespace Chat_Client_GUI
         private string friendName;
         private TcpClient client;
 
+        public User(string username, TcpClient client)
+        {
+            this.username = username;
+            this.client = client;
+        }
+
         public User(string username, string friendName, TcpClient client)
         {
             this.username = username;
@@ -20,7 +26,7 @@ namespace Chat_Client_GUI
 
         public void SendMessage(string message)
         {
-            MessageHandler.SendMessage(client.GetStream(), message);
+            MessageHandler.SendMessage(this.client.GetStream(), message);
         }
 
         public void GetMessage(ChatForm chatForm)
@@ -47,6 +53,13 @@ namespace Chat_Client_GUI
 
             }
 
+        }
+
+        public void Close()
+        {
+            SendMessage("exit");
+            this.client.GetStream().Close();
+            this.client.Close();
         }
     }
 }

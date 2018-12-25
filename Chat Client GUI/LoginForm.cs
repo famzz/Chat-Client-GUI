@@ -6,12 +6,14 @@ namespace Chat_Client_GUI
     public partial class LoginForm : Form
     {
 
+        private User adminUser;
         public string username;
         public string friendName;
 
 
-        public LoginForm()
-        { 
+        public LoginForm(User adminUser)
+        {
+            this.adminUser = adminUser;
             InitializeComponent();
             this.usernameTextBox.KeyPress += new KeyPressEventHandler(usernameTextBox_KeyPress);
             this.friendTextBox.KeyPress += new KeyPressEventHandler(friendTextBox_KeyPress);
@@ -29,7 +31,11 @@ namespace Chat_Client_GUI
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
             /* Please don't ask why Environment.Exit(0) is used in place of Application.Exit(),
                for some reason Application.Exit() doesn't actually exit, but calls this method again?? */
-            else if (e.CloseReason == CloseReason.UserClosing && this.DialogResult != DialogResult.OK) Environment.Exit(0);
+            else if (e.CloseReason == CloseReason.UserClosing && this.DialogResult != DialogResult.OK)
+            {
+                adminUser.Close();
+                Environment.Exit(0);
+            }
         }
 
         private void usernameTextBox_TextChanged(object sender, EventArgs e)
@@ -74,6 +80,12 @@ namespace Chat_Client_GUI
             }
 
             this.Close();
+        }
+
+        private void registerButton_Click(object sender, EventArgs e)
+        {
+            CreateAccountForm createAccountForm = new CreateAccountForm(adminUser);
+            createAccountForm.ShowDialog();
         }
     }
 }
