@@ -9,29 +9,29 @@ namespace Chat_Client_GUI
 
         private string username;
         private string friendName;
-        private TcpClient client;
+        public TcpClient Client { get; }
 
         public User(string username, TcpClient client)
         {
             this.username = username;
-            this.client = client;
+            this.Client = client;
         }
 
         public User(string username, string friendName, TcpClient client)
         {
             this.username = username;
             this.friendName = friendName;
-            this.client = client;
+            this.Client = client;
         }
 
         public void SendMessage(string message)
         {
-            MessageHandler.SendMessage(this.client.GetStream(), message);
+            MessageHandler.SendMessage(this.Client.GetStream(), message);
         }
 
         public void GetMessage(ChatForm chatForm)
         {
-            NetworkStream stream = client.GetStream();
+            NetworkStream stream = Client.GetStream();
 
             while (true)
             {
@@ -58,8 +58,8 @@ namespace Chat_Client_GUI
         public void Close()
         {
             SendMessage("exit");
-            this.client.GetStream().Close();
-            this.client.Close();
+            this.Client.GetStream().Close();
+            this.Client.Close();
         }
     }
 }
